@@ -1,10 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+
+
 // Import Modules
 // 1) Featured Modules
-
 import {AuthModule} from './modules/auth/auth.module';
+import {HomeModule} from './modules/home/home.module';
+
+
 // Core
 import {CoreModule} from './core/core.module';
 
@@ -23,7 +27,8 @@ import { AppComponent } from './app.component';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    CoreModule,
+    HomeModule,
+   // CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
