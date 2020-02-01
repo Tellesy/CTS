@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {HeaderModule} from '../../shared/header/header.module';
+import {HeaderModule} from '../../shared/components/header/header.module';
 
 
 
