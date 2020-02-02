@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 import {MaterialModule} from '../../core/material.module';
 
@@ -19,6 +20,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     MaterialModule,
     FormsModule,
     AuthRoutingModule,
+    HttpClientModule,
   ],
   exports: [
     LoginComponent,
