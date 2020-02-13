@@ -5,20 +5,24 @@ import {IAuth} from '../../interfaces/auth';
 
 
 
+
+
+
 @Injectable(
   { providedIn: 'root'}
 )
 export class AuthService {
 
-  public test: string;
+  
+  public token: string;
   constructor(private http: HttpClient) {
 
    }
 
    login(username,password): Observable<IAuth> 
    {  
-      this.test = username;
-      console.log("test " + this.test);
+      this.token = username;
+     
       console.log(username + " " + password);
       return null;
    }
