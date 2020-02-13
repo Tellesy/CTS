@@ -18,7 +18,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +29,6 @@ import { AppComponent } from './app.component';
     HomeModule,
    // CoreModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

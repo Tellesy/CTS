@@ -11,6 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
+import {AuthService} from '../../shared/services/authentication/auth.service';
 
 
 @NgModule({
@@ -20,8 +21,9 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     MaterialModule,
     FormsModule,
     AuthRoutingModule,
-    HttpClientModule,
+    HttpClientModule
   ],
+  providers: [AuthService],
   exports: [
     LoginComponent,
     RegisterComponent,

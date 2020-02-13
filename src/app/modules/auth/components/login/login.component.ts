@@ -1,25 +1,26 @@
 import * as core from '@angular/core';
-
+import {AuthService} from '../../../../shared/services/authentication/auth.service';
 
 
 @core.Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements core.OnInit {
 
-varr = 'FF';
+username: string;
+password: string;
 
 
-  constructor() { }
+  constructor(private authservice: AuthService) { }
 
   ngOnInit() {
   }
 
-  fun(e)
+  login()
   {
-    this.varr = e.target.value;
+    this.authservice.login(this.username, this.password);
   }
 
 }
