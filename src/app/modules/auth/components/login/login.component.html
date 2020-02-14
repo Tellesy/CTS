@@ -8,7 +8,10 @@
             <img src="assets/images/logo.svg" alt="logo">
           </div>
           <h4>Welcome to CTS - made by Mu Tellesy Software</h4>
-
+          <ng-template [ngIf]="displayMessage">
+            <p class="error-message">{{message}}</p>
+          </ng-template>
+          
           <form class="pt-3">
             <div class="form-group">
               <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username" [(ngModel)]="username" name="username">

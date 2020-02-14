@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 
+
 // Import Modules
 // 1) Featured Modules
 import {AuthModule} from './modules/auth/auth.module';
@@ -29,7 +30,7 @@ import {HttpOptionsService} from './shared/services/http/http-options.service';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    HomeModule,
+    HomeModule
    // CoreModule,
   ],
   providers: [HttpOptionsService],
