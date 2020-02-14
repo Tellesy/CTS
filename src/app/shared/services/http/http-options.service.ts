@@ -6,8 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class HttpOptionsService {
 
-   public uri = '';
-   
+   private url = 'http://localhost:3000/api/v1';
    private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -15,4 +14,16 @@ export class HttpOptionsService {
     })
   };
   constructor() { }
+
+  getURL() {
+    return this.url;
+  }
+
+  setAccessTokenInHeader(token){
+    this.httpOptions.headers = this.httpOptions.headers.set('Access-Token', token);
+  }
+  getHTTPOptions() {
+    return this.httpOptions;
+  }
+  
 }

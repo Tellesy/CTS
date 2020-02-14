@@ -20,7 +20,13 @@ password: string;
 
   login()
   {
-    this.authservice.login(this.username, this.password);
+    this.authservice.login(this.username, this.password).subscribe(data => {
+      if(data.status == 201)
+      {
+        localStorage.setItem('token', data.body.accessToken);
+        console.log("Good");
+      }
+    });
   }
 
 }

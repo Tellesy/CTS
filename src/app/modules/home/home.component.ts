@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-//test delete after
-
-import {AuthService} from '../../shared/services/authentication/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +8,9 @@ import {AuthService} from '../../shared/services/authentication/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private _auth: AuthService) { }
+  constructor() { }
 
   ngOnInit() {
-    console.log("HOME HELLO")
-    console.log(this._auth.test);
     
   }
 

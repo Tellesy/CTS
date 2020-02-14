@@ -17,6 +17,9 @@ import {CoreModule} from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+//Services
+import {HttpOptionsService} from './shared/services/http/http-options.service';
+
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { AppComponent } from './app.component';
     HomeModule,
    // CoreModule,
   ],
+  providers: [HttpOptionsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
