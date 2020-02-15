@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+// import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 
@@ -7,9 +7,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {HeaderRoutingModule} from './header-routing.module';
 
 @NgModule({
- imports:      [ CommonModule, NgbModule, HeaderRoutingModule],
+ imports:      [ NgbModule, HeaderRoutingModule],
  declarations: [ HeaderComponent ],
- exports:      [ HeaderComponent,
-                 CommonModule]
+ exports:      [ HeaderComponent
+                 ]
 })
 export class HeaderModule { }

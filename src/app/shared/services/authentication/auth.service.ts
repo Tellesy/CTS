@@ -18,10 +18,20 @@ import {catchError, retry} from 'rxjs/operators';
 export class AuthService {
 
 
-  public token: string;
+  private token: string;
   public message: string;
   constructor(private http: HttpClient, private httpOptionsService: HttpOptionsService) {
 
+   }
+
+   setToken(token){
+    localStorage.setItem('token',token);
+    this.token = token;
+   }
+
+   getToken(): string{
+    const token = localStorage.getItem('token');
+    return token;
    }
 
    loginRequest(username, password): Observable<IAuth> {
@@ -30,6 +40,12 @@ export class AuthService {
     {username, password}, this.httpOptionsService.getHTTPOptions()).pipe(catchError(this.handleError));
    }
 
+   verifyToken(token): Observable<IAuth> {
+     this.httpOptionsService.setAccessTokenInHeader(token);
+    
+     return this.http.get<IAuth>(this.httpOptionsService.getURL() + '/auth',
+    this.httpOptionsService.getHTTPOptions()).pipe(catchError(this.handleError));
+   }
 
    handleError(err) {
      if (err instanceof HttpErrorResponse) {

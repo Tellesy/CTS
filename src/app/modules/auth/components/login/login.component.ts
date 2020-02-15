@@ -17,9 +17,10 @@ displayMessage: boolean;
 message: string;
 
 
-  constructor(private authservice: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    localStorage.clear();
   }
 
   login() {
@@ -31,11 +32,9 @@ message: string;
       this.displayMessage = true;
       return; }
 
-      const isLogin =  this.authservice.loginRequest(this.username, this.password);
-
-      this.authservice.loginRequest(this.username, this.password).subscribe(data => {
+      this.authService.loginRequest(this.username, this.password).subscribe(data => {
         if (data.status === 201) {
-          localStorage.setItem('token', data.body.accessToken);
+          this.authService.setToken(data.body.accessToken);
           this.router.navigate(['/']);
         } else {
             this.message = data.body.message;
@@ -47,8 +46,7 @@ message: string;
               this.message = err.body.message;
               this.displayMessage = true;
               }
-                }
-                  );
+                });
 
 
   }

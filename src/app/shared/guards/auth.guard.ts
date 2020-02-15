@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import {UserService} from '../services/user/user.service';
-import {IUser} from '../interfaces/user';
+import {AuthService} from '../services/authentication/auth.service';
+import {IAuth} from '../interfaces/auth';
 
 import { Observable } from 'rxjs';
 
@@ -10,22 +10,34 @@ import { Observable } from 'rxjs';
 })
 export class AuthGuard implements CanActivate {
 
-    x: IUser;
-  //constructor(private authService: AuthService, private router: Router) { }
-  constructor(private UserService: UserService, private router: Router) { }
-  canActivate() {
-    // if (this.authService.isLoggedIn()) {
-    //   this.router.navigate(['/']);
-    // }
-    // return !this.authService.isLoggedIn();
-
-  this.UserService.getUser().subscribe(data => this.x = data);
-  //  console.log(this.x);
-  //   console.log("Hey i'm in log");
-    if (true) {
-      //this.router.navigate(['/']);
-    }
-    return true;
+  private canActivateFlag: boolean;
+  constructor(private authService: AuthService, private router: Router) { }
+  async verfiy() {
+      return true;
   }
+  async canActivate(): Promise<boolean> {
 
+
+    // await this.verfiy().then(() => { this.return true});
+     this.canActivateFlag = false;
+     const token = localStorage.getItem('token');
+     if (token) {
+       await this.authService.verifyToken(token).toPromise().then((data) => {
+          if (data.status === 200) {
+          this.canActivateFlag = true;
+          // Always update token
+          this.authService.setToken(data.body.accessToken);
+          } else {
+            this.canActivateFlag = false;
+           }
+      }
+      ).catch((e) => { this.canActivateFlag = false; });
+     } else {
+      this.canActivateFlag = false;
+     }
+     if (!this.canActivateFlag) {
+      this.router.navigate(['/login']);
+     }
+     return this.canActivateFlag;
+  }
 }
