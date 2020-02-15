@@ -36,7 +36,7 @@ export class AuthService {
 
    loginRequest(username, password): Observable<IAuth> {
 
-    return this.http.post<IAuth>(this.httpOptionsService.getURL() + '/login',
+    return this.http.post<IAuth>(this.httpOptionsService.getURL() + '/auth',
     {username, password}, this.httpOptionsService.getHTTPOptions()).pipe(catchError(this.handleError));
    }
 
