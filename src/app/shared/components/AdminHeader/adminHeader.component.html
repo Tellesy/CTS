@@ -1,0 +1,74 @@
+<header>
+  <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+      <a class="navbar-brand brand-logo" routerLink="/"><img src="assets/images/logo.svg" alt="logo" /></a>
+      <a class="navbar-brand brand-logo-mini" routerLink="/"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-stretch">
+      <ul class="navbar-nav navbar-nav-left">
+        <li class="nav-link">
+          <div class="nav-profile-text myListItem">
+            <a routerLink="/">Home</a>
+          </div>
+        </li>
+        <li class="nav-link">
+          <div class="nav-profile-text myListItem">
+            <a routerLink="/clients">Clients</a>
+          </div>
+        </li>
+        <li class="nav-link">
+          <div class="nav-profile-text myListItem">
+            <a routerLink="/card_issuance"> Card Issuance</a>
+          </div>
+        </li>
+        <li class="nav-link">
+          <div class="nav-profile-text myListItem">
+            <a href="#" routerLink='/login'>Card Replacment</a>
+          </div>
+        </li>
+        <li class="nav-link">
+          <div class="nav-profile-text myListItem">
+            <a>Load Balance</a>
+          </div>
+        </li>
+        <li class="nav-link">
+          <div class="nav-profile-text myListItem">
+            <a>PIN</a>
+          </div>
+        </li>
+
+      </ul>
+
+      <ul class="navbar-nav navbar-nav-right">
+        <li class="nav-item nav-profile dropdown" ngbDropdown>
+          <a class="nav-link dropdown-toggle" id="profileDropdown" ngbDropdownToggle>
+            <div class="nav-profile-img">
+              <img src="assets/images/faces/face1.jpg" alt="image">
+              <span class="availability-status online"></span>
+            </div>
+            <div class="nav-profile-text">
+              <p class="mb-1 text-black">{{fullname}}</p>
+            </div>
+          </a>
+          <div class="dropdown-menu navbar-dropdown" ngbDropdownMenu aria-labelledby="profileDropdown">
+            <a class="dropdown-item" href="javascript:;">
+              <i class="mdi mdi-cached mr-2 text-success"></i>
+              Profile
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="javascript:;">
+              <i class="mdi mdi-logout mr-2 text-primary"></i>
+              Signout
+            </a>
+          </div>
+        </li>
+
+
+
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+

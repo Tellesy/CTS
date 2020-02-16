@@ -6,20 +6,23 @@ import { NgModule } from '@angular/core';
 
 // Import Modules
 // 1) Featured Modules
-import {AuthModule} from './modules/auth/auth.module';
+import {UserModule} from './modules/user/components/user.module';
 import {HomeModule} from './modules/home/home.module';
+import {IssuanceModule} from './modules/issuance/issuance.module';
 
 
 // Core
 import {CoreModule} from './core/core.module';
+
 
 // 3) Shared Modules
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-//Services
+// Services
 import {HttpOptionsService} from './shared/services/http/http-options.service';
+
 
 
 @NgModule({
@@ -29,8 +32,9 @@ import {HttpOptionsService} from './shared/services/http/http-options.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthModule,
-    HomeModule
+    UserModule,
+    HomeModule,
+    IssuanceModule
    // CoreModule,
   ],
   providers: [HttpOptionsService],

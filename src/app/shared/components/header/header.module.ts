@@ -6,10 +6,14 @@ import { HeaderComponent } from './header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {HeaderRoutingModule} from './header-routing.module';
 
+// import headers
+import {AdminHeaderComponent} from '../AdminHeader/adminHeader.component';
+
+
 @NgModule({
  imports:      [ NgbModule, HeaderRoutingModule],
- declarations: [ HeaderComponent ],
- exports:      [ HeaderComponent
+ declarations: [ HeaderComponent, AdminHeaderComponent ],
+ exports:      [ HeaderComponent, AdminHeaderComponent
                  ]
 })
 export class HeaderModule { }

@@ -15,7 +15,6 @@ import {HeaderModule} from '../../shared/components/header/header.module';
 
 ],
 exports:[
-  HomeComponent,
 ]
 })
 export class HomeModule { }
