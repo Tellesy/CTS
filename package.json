@@ -49,10 +49,6 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-<<<<<<< HEAD
-    "typescript": "^3.6.5"
-=======
     "typescript": "~3.5.3"
->>>>>>> parent of 1b6a8ad... Working on FlexLayout
   }
 }
