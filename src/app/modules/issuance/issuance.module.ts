@@ -5,6 +5,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {SharedModule} from '../../shared/shared.module';
 
 import {PTSIssueComponent} from './PTS_issue/PTS_issue.component';
 
@@ -17,12 +18,14 @@ import {PTSIssueComponent} from './PTS_issue/PTS_issue.component';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     HeaderModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatCardModule
+    
   ]
 })
 export class IssuanceModule { }
