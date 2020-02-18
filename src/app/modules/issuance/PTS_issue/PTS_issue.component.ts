@@ -19,6 +19,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class PTSIssueComponent implements OnInit {
 
+  AppicationTabFlag: boolean = true;
   constructor() { }
 
   ngOnInit() {
@@ -28,6 +29,7 @@ export class PTSIssueComponent implements OnInit {
     Validators.required,
     Validators.email,
   ]);
+
 
   matcher = new MyErrorStateMatcher();
 

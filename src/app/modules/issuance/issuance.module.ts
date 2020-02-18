@@ -12,7 +12,6 @@ import {PTSIssueComponent} from './PTS_issue/PTS_issue.component';
 
 
 
-
 @NgModule({
   declarations: [PTSIssueComponent,
   ],

@@ -1,12 +1,12 @@
 
 
-.example-form {
+.cts-form {
     min-width: 150px;
     max-width: 500px;
     width: 100%;
   }
   
-  .example-full-width {
+  .cts-full-width {
     width: 100%;
   }
 
@@ -17,10 +17,17 @@
 
   .card-center {
     //padding-top: 100px;
-    padding: 250px;
+    padding: 20px;
     //display: flex;
-    justify-content: center;
-    align-items: center;
+    // justify-content: center;
+    // align-items: center;
 
+  }
+
+  .cts-button {
+    align-items: flex-end;
+    align-self: center;
+    align-content: center;
+    object-position: center;
   }
   

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 
@@ -10,7 +11,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     CommonModule
   ],
   exports: [
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatTabsModule
   ]
 })
 export class SharedModule { }
