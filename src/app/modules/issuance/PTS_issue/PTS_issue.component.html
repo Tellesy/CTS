@@ -11,35 +11,239 @@
       <mat-tab-group>
         <mat-tab label="Customer Details"> 
     <mat-card-content>
+
+
         <form class="cts-form">
             <mat-form-field class="cts-full-width">
+              <mat-label>Customer ID</mat-label>
+              <input #customer_id maxlength="7" matInput [formControl]="IDFormControl" [errorStateMatcher]="IDmatcher"
+                     placeholder="Ex. 1000999">
+              <mat-error *ngIf="IDFormControl.hasError('email') && !IDFormControl.hasError('required')">
+                Please enter a valid Customer ID
+              </mat-error>
+              <mat-error *ngIf="IDFormControl.hasError('required')">
+                Customer ID is <strong>required</strong>
+              </mat-error>
+              <mat-hint align="end">{{customer_id.value?.length || 0}}/7</mat-hint>
+            </mat-form-field>
+
+
+
+            <mat-form-field >
+              <mat-label> Gender </mat-label>
+              <mat-select value="M" required >
+                <mat-option value="M">Male</mat-option>
+                <mat-option value="F">Female</mat-option>
+              </mat-select>
+
+            </mat-form-field>
+
+
+
+
+
+
+
+
+            <div fxLayout="row" fxLayoutGap="10px">
+              <mat-form-field class="cts-title">
+                <mat-label> Title </mat-label>
+                <mat-select>
+                  <mat-option value="1">Mr.</mat-option>
+                  <mat-option value="2">Mrs.</mat-option>
+                  <mat-option value="3">Miss.</mat-option>
+                </mat-select>
+    
+              </mat-form-field>
+
+              <mat-form-field class="cts-full-width">
+                <mat-label>First Name</mat-label>
+                <input matInput [formControl]="nameFormControl" [errorStateMatcher]="firstNameMatcher"
+                       placeholder="Ex. Muhammad">
+                <mat-error *ngIf="nameFormControl.hasError('required')">
+                  First Name is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="nameFormControl.hasError('maxlength')">
+                  First Name lenghts can't be more than <strong>15</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          
+
+
+            <mat-form-field class="cts-full-width">
+              <mat-label>Last Name</mat-label>
+              <input matInput [formControl]="nameFormControl" [errorStateMatcher]="lastNameMatcher"
+                     placeholder="Ex. Tellesy">
+              <mat-error *ngIf="nameFormControl.hasError('required')">
+                Last Name is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="nameFormControl.hasError('maxlength')">
+                Last Name lenghts can't be more than <strong>15</strong>
+              </mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field class="cts-full-width">
+              <mat-label>Embossed Name</mat-label>
+              <input matInput #embossed_name maxlength="26" [formControl]="embossedNameFormControl" [errorStateMatcher]="embossedMatcher"
+                     placeholder="Ex. Muhammad Tellesy">
+       
+              <mat-error *ngIf="embossedNameFormControl.hasError('required')">
+                Embossed Name is <strong>required</strong>
+              </mat-error>
+
+              
+              <mat-error *ngIf="embossedNameFormControl.hasError('maxlength')">
+                Embossed Name lenghts can't be more than <strong>26</strong>
+              </mat-error>
+
+              <mat-hint align="end">{{embossed_name.value?.length || 0}}/26</mat-hint>
+            </mat-form-field>
+
+            
+            <mat-form-field class="cts-full-width">
+              <mat-label>National ID</mat-label>
+              <input  #NID maxlength="15" matInput [formControl]="NIDFormControl" [errorStateMatcher]="NIDMatcher"
+                     placeholder="Ex. 119920000000000">
+              <mat-error *ngIf="NIDFormControl.hasError('required')">
+                National ID is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="NIDFormControl.hasError('maxlength') || NIDFormControl.hasError('minlength') ">
+                Enter Valid NID
+              </mat-error>
+              <mat-hint align="end">{{NID.value?.length || 0}}/15</mat-hint>
+            </mat-form-field>
+          
+
+            <mat-form-field class="cts-full-width">
               <mat-label>Email</mat-label>
-              <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                     placeholder="Ex. pat@example.com">
+              <input matInput [formControl]="emailFormControl" [errorStateMatcher]="emailMatcher"
+                     placeholder="mtellesy@gmail.com">
               <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid email address
+                Please enter a valid Email
               </mat-error>
               <mat-error *ngIf="emailFormControl.hasError('required')">
                 Email is <strong>required</strong>
               </mat-error>
             </mat-form-field>
 
+
+            <div fxLayout="row" fxLayoutGap="10px">
+
+              <mat-form-field class="cts-title">
+                <mat-label> ISD </mat-label>
+                <mat-select required value="1">
+                  <mat-option value="1">+218</mat-option>
+                </mat-select>
+    
+              </mat-form-field>
             <mat-form-field class="cts-full-width">
-                <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                placeholder="Ex. pat@example.com">
-                </mat-form-field>
+              <mat-label>Mobile Number</mat-label>
+              <input matInput [formControl]="mobileFormControl" [errorStateMatcher]="mobileMatcher"
+                     placeholder="Ex. 911000000">
+              <mat-error *ngIf="mobileFormControl.hasError('required')">
+                Mobile Phone is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="mobileFormControl.hasError('maxlength') || mobileFormControl.hasError('minlength') ">
+                Enter Valid Mobile Number
+              </mat-error>
+            </mat-form-field>
+            </div>
+
+            
+
+            <div>
+            <mat-form-field >
+              <mat-label > Nationality </mat-label>
+              <mat-select value="434" required >
+                <mat-option value="434" >Libyan</mat-option>
+              </mat-select>
+             
+           
+            </mat-form-field>
+          </div>
+
+
+          <div fxLayout="row" fxLayoutGap="10px">
+            <mat-form-field >
+              <mat-label > Birth Country </mat-label>
+              <mat-select value="434" required >
+                <mat-option value="434">Libya</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="cts-full-width">
+              <mat-label>Birthdate</mat-label>
+              <input matInput [matDatepicker]="picker">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="10px">
+            
+              <mat-form-field class="cts-full-width">
+                <mat-label>Passport Number</mat-label>
+                <input matInput [formControl]="passportFormControl" [errorStateMatcher]="passportMatcher"
+                       placeholder="Ex. KK45232">
+                <mat-error *ngIf="passportFormControl.hasError('required')">
+                  Passport Number is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="passportFormControl.hasError('maxlength')">
+                  Enter Valid Passport Number
+                </mat-error>
+              </mat-form-field>
+
+
+            <mat-form-field  class="cts-full-width">
+              <mat-label>Exp Date</mat-label>
+              <input matInput [matDatepicker]="passportExpDate">
+              <mat-datepicker-toggle matSuffix [for]="passportExpDate"></mat-datepicker-toggle>
+              <mat-datepicker #passportExpDate startView="year" [startAt]="startDate"></mat-datepicker>
+            </mat-form-field>
+          </div>
+
 
           </form>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>Add</button>
-    </mat-card-actions>
 
     
    </mat-tab>
     <mat-tab label="Application" disabled={{AppicationTabFlag}}>
+      <mat-card-content>
+        <form class="cts-form">
+          <br>
+          <div>
+        <mat-form-field >
+          <mat-label> Program </mat-label>
+          <mat-select value="1" required >
+            <mat-option value="1">PCIK243923</mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field >
+          <mat-label> Application Type </mat-label>
+          <mat-select value="P" required >
+          <mat-option value="P">Primary Device</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
       
-        Content 1
+      <div>
+        <mat-form-field >
+          <mat-label> Application Sub Type </mat-label>
+          <mat-select value="N" required>
+          <mat-option value="N">New Program</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      </form>
+        </mat-card-content>
    
     </mat-tab>
   </mat-tab-group>

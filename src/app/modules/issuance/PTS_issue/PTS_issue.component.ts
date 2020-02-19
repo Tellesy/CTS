@@ -19,18 +19,63 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class PTSIssueComponent implements OnInit {
 
-  AppicationTabFlag: boolean = true;
+  AppicationTabFlag: boolean = false;
+  startDate = new Date(1980, 0, 1);
+
+
   constructor() { }
 
   ngOnInit() {
   }
+
+  IDFormControl = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(7),
+    Validators.minLength(7),
+  ]);
 
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
   ]);
 
+  nameFormControl = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(15)
+  ]);
 
-  matcher = new MyErrorStateMatcher();
+  NIDFormControl = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(15),
+    Validators.minLength(15)
+  ]);
+
+  mobileFormControl = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(9),
+    Validators.minLength(9)
+  ]);
+
+  embossedNameFormControl = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(26)
+  ]);
+
+  passportFormControl = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(15)
+  ]);
+  
+
+  IDmatcher = new MyErrorStateMatcher();
+  firstNameMatcher = new MyErrorStateMatcher();
+  lastNameMatcher = new MyErrorStateMatcher();
+  embossedMatcher = new MyErrorStateMatcher();
+  emailMatcher = new MyErrorStateMatcher();
+  NIDMatcher = new MyErrorStateMatcher();
+  mobileMatcher = new MyErrorStateMatcher();
+  passportMatcher = new MyErrorStateMatcher();
+
+  
 
 }
