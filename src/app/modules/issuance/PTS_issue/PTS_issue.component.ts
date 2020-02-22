@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import { CustomerService } from 'src/app/shared/services/customer/customer.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -23,7 +24,28 @@ export class PTSIssueComponent implements OnInit {
   startDate = new Date(1980, 0, 1);
 
 
-  constructor() { }
+  //Fields data
+  Customer_ID:number;
+  DisableCustomerDetailesFlag:boolean = true;
+
+  constructor(private customerService:CustomerService) { }
+
+
+  async getCustomer()
+  {
+    this.DisableCustomerDetailesFlag =true
+    this.Customer_ID = this.IDFormControl.value;
+    console.log("Nigga");
+    console.log(this.Customer_ID.toString());
+    if(this.Customer_ID.toString().length >=6)
+    {
+      console.log("Whaat");
+     await this.customerService.getCustomer(this.Customer_ID).toPromise().then((data) => {console.log(data)}).catch(
+       (e) => console.log(e)
+     );
+    }
+    
+  }
 
   ngOnInit() {
   }

@@ -5,6 +5,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatSelectModule} from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {HttpClientModule} from '@angular/common/http';
+import {MaterialModule} from '../core/material.module';
+
 
 
 
@@ -15,10 +18,12 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
   ],
   exports: [
     FlexLayoutModule,
-    MatTabsModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatDatepickerModule
+    // MatTabsModule,
+    // MatFormFieldModule,
+    // MatSelectModule,
+    // MatDatepickerModule,
+    MaterialModule,
+    HttpClientModule
   ]
 })
 export class SharedModule { }

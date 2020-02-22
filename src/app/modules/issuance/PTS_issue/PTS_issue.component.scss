@@ -10,6 +10,16 @@
     width: 100%;
   }
 
+  .cts-id-row {
+    width: 75%;
+  }
+
+  .cts-button-row {
+    width: 20%;
+    align-self: flex-end;
+    align-content: flex-end;
+    align-items: flex-end;
+  }
   .cts-card {
     max-width: 100px;
     

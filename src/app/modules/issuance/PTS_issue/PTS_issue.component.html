@@ -6,7 +6,6 @@
 
 
 <div class="card-center">
-  
      <mat-card >
       <mat-tab-group>
         <mat-tab label="Customer Details"> 
@@ -14,10 +13,12 @@
 
 
         <form class="cts-form">
-            <mat-form-field class="cts-full-width">
+          <div fxLayout="row" fxLayoutGap="10px">
+            <mat-form-field class="cts-id-row">
+    
               <mat-label>Customer ID</mat-label>
               <input #customer_id maxlength="7" matInput [formControl]="IDFormControl" [errorStateMatcher]="IDmatcher"
-                     placeholder="Ex. 1000999">
+                     placeholder="Ex. 1000999" (keypress)="getCustomer()" >
               <mat-error *ngIf="IDFormControl.hasError('email') && !IDFormControl.hasError('required')">
                 Please enter a valid Customer ID
               </mat-error>
@@ -27,8 +28,8 @@
               <mat-hint align="end">{{customer_id.value?.length || 0}}/7</mat-hint>
             </mat-form-field>
 
-
-
+            <button mat-flat-button color="primary" class="cts-button-row" (click)="getCustomer()">Search</button>
+          </div>
             <mat-form-field >
               <mat-label> Gender </mat-label>
               <mat-select value="M" required >
@@ -46,7 +47,7 @@
 
 
             <div fxLayout="row" fxLayoutGap="10px">
-              <mat-form-field class="cts-title">
+              <mat-form-field class="cts-title" >
                 <mat-label> Title </mat-label>
                 <mat-select>
                   <mat-option value="1">Mr.</mat-option>
