@@ -33,7 +33,7 @@ export class PTSIssueComponent implements OnInit {
 
   async getCustomer()
   {
-    this.DisableCustomerDetailesFlag =true
+    //this.DisableCustomerDetailesFlag =true;
     this.Customer_ID = this.IDFormControl.value;
     console.log("Nigga");
     console.log(this.Customer_ID.toString());
