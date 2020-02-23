@@ -88,6 +88,10 @@ export class PTSIssueComponent implements OnInit {
     Validators.maxLength(15)
   ]);
   
+  accountNumber = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(15)
+  ]);
 
   IDmatcher = new MyErrorStateMatcher();
   firstNameMatcher = new MyErrorStateMatcher();

@@ -225,6 +225,17 @@
         </mat-form-field>
       </div>
 
+      <mat-form-field class="cts-full-width">
+        <mat-label>Account Number</mat-label>
+        <input matInput [formControl]="passportFormControl" [errorStateMatcher]="passportMatcher"
+               placeholder="Ex. KK45232">
+        <mat-error *ngIf="passportFormControl.hasError('required')">
+          Passport Number is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="passportFormControl.hasError('maxlength')">
+          Enter Valid Passport Number
+        </mat-error>
+      </mat-form-field>
       <div>
         <mat-form-field >
           <mat-label> Application Type </mat-label>
