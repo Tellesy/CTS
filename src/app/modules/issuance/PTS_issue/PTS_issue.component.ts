@@ -33,6 +33,11 @@ export class PTSIssueComponent implements OnInit {
 
   async getCustomer()
   {
+    if(this.IDFormControl.errors)
+    {
+      return;
+    }
+  
     //this.DisableCustomerDetailesFlag =true;
     this.Customer_ID = this.IDFormControl.value;
     console.log("Nigga");
@@ -54,14 +59,19 @@ export class PTSIssueComponent implements OnInit {
     Validators.required,
     Validators.maxLength(7),
     Validators.minLength(7),
+    Validators.pattern(/^-?(0|[1-9]\d*)?$/)
   ]);
 
   emailFormControl = new FormControl('', [
     Validators.required,
-    Validators.email,
+    Validators.email
   ]);
 
-  nameFormControl = new FormControl('', [
+  firstNameFormControl = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(15)
+  ]);
+  lastNameFormControl = new FormControl('', [
     Validators.required,
     Validators.maxLength(15)
   ]);
@@ -69,13 +79,15 @@ export class PTSIssueComponent implements OnInit {
   NIDFormControl = new FormControl('', [
     Validators.required,
     Validators.maxLength(15),
-    Validators.minLength(15)
+    Validators.minLength(15),
+    Validators.pattern(/^-?(0|[1-9]\d*)?$/),
   ]);
 
   mobileFormControl = new FormControl('', [
     Validators.required,
     Validators.maxLength(9),
-    Validators.minLength(9)
+    Validators.minLength(9),
+    Validators.pattern(/^-?(0|[1-9]\d*)?$/)
   ]);
 
   embossedNameFormControl = new FormControl('', [
@@ -88,9 +100,13 @@ export class PTSIssueComponent implements OnInit {
     Validators.maxLength(15)
   ]);
   
-  accountNumber = new FormControl('', [
+  accountNumberFormControl = new FormControl('', [
     Validators.required,
-    Validators.maxLength(15)
+    Validators.maxLength(15),
+    Validators.minLength(15),
+    Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+    this.accountNumberValidator
+   // Validators.
   ]);
 
   IDmatcher = new MyErrorStateMatcher();
@@ -101,7 +117,39 @@ export class PTSIssueComponent implements OnInit {
   NIDMatcher = new MyErrorStateMatcher();
   mobileMatcher = new MyErrorStateMatcher();
   passportMatcher = new MyErrorStateMatcher();
-
+  accountNumberMatcher = new MyErrorStateMatcher();
   
 
+  //Customer Validator
+
+  accountNumberValidator(control: FormControl)
+  {
+     let account:string = control.value;
+    if(account.length === 15)
+    {
+     if((account[7]+account[8]+account[9]) !== '840')
+     return {
+      accountNumber: {
+        currency: '840'
+      }
+      }
+    }
+    return null;
+    //if(!account.includes('840'))
+  }
+  // emailDomainValidator(control: FormControl) { 
+  //   let account = control.value;
+      
+  //   if (email && email.indexOf("@") != -1) { 
+  //     let [_, domain] = email.split("@"); 
+  //     if (domain !== "codecraft.tv") { 
+  //       return {
+  //         emailDomain: {
+  //           parsedDomain: domain
+  //         }
+  //       }
+  //     }
+  //   }
+  //   return null; 
+  // }
 }

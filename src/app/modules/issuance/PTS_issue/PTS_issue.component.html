@@ -18,7 +18,7 @@
     
               <mat-label>Customer ID</mat-label>
               <input #customer_id maxlength="7" matInput [formControl]="IDFormControl" [errorStateMatcher]="IDmatcher"
-                     placeholder="Ex. 1000999" (keypress)="getCustomer()" >
+                     placeholder="Ex. 1000999"  >
               <mat-error *ngIf="IDFormControl.hasError('email') && !IDFormControl.hasError('required')">
                 Please enter a valid Customer ID
               </mat-error>
@@ -59,12 +59,12 @@
 
               <mat-form-field class="cts-full-width">
                 <mat-label>First Name</mat-label>
-                <input matInput [formControl]="nameFormControl" [errorStateMatcher]="firstNameMatcher"
+                <input matInput [formControl]="firstNameFormControl" [errorStateMatcher]="firstNameMatcher"
                        placeholder="Ex. Muhammad">
-                <mat-error *ngIf="nameFormControl.hasError('required')">
+                <mat-error *ngIf="firstNameFormControl.hasError('required')">
                   First Name is <strong>required</strong>
                 </mat-error>
-                <mat-error *ngIf="nameFormControl.hasError('maxlength')">
+                <mat-error *ngIf="firstNameFormControl.hasError('maxlength')">
                   First Name lenghts can't be more than <strong>15</strong>
                 </mat-error>
               </mat-form-field>
@@ -74,12 +74,12 @@
 
             <mat-form-field class="cts-full-width">
               <mat-label>Last Name</mat-label>
-              <input matInput [formControl]="nameFormControl" [errorStateMatcher]="lastNameMatcher"
+              <input matInput [formControl]="lastNameFormControl" [errorStateMatcher]="lastNameMatcher"
                      placeholder="Ex. Tellesy">
-              <mat-error *ngIf="nameFormControl.hasError('required')">
+              <mat-error *ngIf="lastNameFormControl.hasError('required')">
                 Last Name is <strong>required</strong>
               </mat-error>
-              <mat-error *ngIf="nameFormControl.hasError('maxlength')">
+              <mat-error *ngIf="lastNameFormControl.hasError('maxlength')">
                 Last Name lenghts can't be more than <strong>15</strong>
               </mat-error>
             </mat-form-field>
@@ -227,14 +227,17 @@
 
       <mat-form-field class="cts-full-width">
         <mat-label>Account Number</mat-label>
-        <input matInput [formControl]="passportFormControl" [errorStateMatcher]="passportMatcher"
-               placeholder="Ex. KK45232">
-        <mat-error *ngIf="passportFormControl.hasError('required')">
-          Passport Number is <strong>required</strong>
+        <input matInput [formControl]="accountNumberFormControl" [errorStateMatcher]="accountNumberMatcher"
+               placeholder="Ex. 199999984008049" [value]="IDFormControl.value + '840'">
+        <mat-error *ngIf="accountNumberFormControl.hasError('required')">
+          Account Number is <strong>required</strong>
         </mat-error>
-        <mat-error *ngIf="passportFormControl.hasError('maxlength')">
-          Enter Valid Passport Number
+        <mat-error *ngIf="accountNumberFormControl.hasError('maxlength') || accountNumberFormControl.hasError('minlength')">
+          Enter Valid Account Number
         </mat-error>
+        <mat-error *ngIf="accountNumberFormControl.hasError('pattern')">Account Number should only contain numbers</mat-error>
+        <mat-error *ngIf="accountNumberFormControl.hasError('accountNumber')">Wrong Account Currency Code</mat-error>
+
       </mat-form-field>
       <div>
         <mat-form-field >
