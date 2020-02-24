@@ -30,28 +30,12 @@ export class CustomerService {
      this.httpOptionsService.getHTTPOptions()).pipe(catchError(this.handleError));
    }
 
-   setToken(token){
-    localStorage.setItem('token',token);
-    this.token = token;
+   addCustomer(customer)
+   {
+     return this.http.post<IAuth>(this.httpOptionsService.getURL()+'/auth/customer', customer,
+     this.httpOptionsService.getHTTPOptions()).pipe(catchError(this.handleError));
    }
-
-   getToken(): string{
-    const token = localStorage.getItem('token');
-    return token;
-   }
-
-   loginRequest(username, password): Observable<IAuth> {
-
-    return this.http.post<IAuth>(this.httpOptionsService.getURL() + '/auth',
-    {username, password}, this.httpOptionsService.getHTTPOptions()).pipe(catchError(this.handleError));
-   }
-
-   verifyToken(token): Observable<IAuth> {
-     this.httpOptionsService.setAccessTokenInHeader(token);
-    
-     return this.http.get<IAuth>(this.httpOptionsService.getURL() + '/auth',
-    this.httpOptionsService.getHTTPOptions()).pipe(catchError(this.handleError));
-   }
+ 
 
    handleError(err) {
      if (err instanceof HttpErrorResponse) {

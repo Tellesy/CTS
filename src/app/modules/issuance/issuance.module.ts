@@ -9,13 +9,15 @@ import {SharedModule} from '../../shared/shared.module';
 import {PTSIssueComponent} from './PTS_issue/PTS_issue.component';
 
 //Services
-import {CustomerService} from '../../shared/services/customer/customer.service'
+import {CustomerService} from '../../shared/services/customer/customer.service';
+import { AuthService } from '../../shared/services/authentication/auth.service';
+
 
 
 @NgModule({
   declarations: [PTSIssueComponent,
   ],
-  providers: [CustomerService],
+  providers: [CustomerService,AuthService],
   imports: [
     CommonModule,
     SharedModule,

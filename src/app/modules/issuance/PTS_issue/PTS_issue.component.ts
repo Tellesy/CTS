@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { CustomerService } from 'src/app/shared/services/customer/customer.service';
+import { AuthService } from 'src/app/shared/services/authentication/auth.service';
+import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
+
+
+
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -20,34 +26,75 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class PTSIssueComponent implements OnInit {
 
-  Tab:number = 0;
-  AppicationTabFlag: boolean = true;
+  //Strings
+  SubmitErrorMessage:string = '';
+  SubmitButtonText:string = 'Add';
 
+  //Parameters
+  Tab:number = 0;
   startDate = new Date(1980, 0, 1);
 
-
-  //Fields data
+  //Field Data
   Customer_ID:number;
-  //DisableCustomerDetailesFlag:boolean = true;
+
+  //Flags
+  AppicationTabFlag: boolean = true;
+  CustomerExist:boolean = false;
 
 
-  constructor(private customerService:CustomerService) { }
+
+  constructor(private customerService:CustomerService, private authService:AuthService,private datePipe: DatePipe) { }
 
 
   async addCustomer()
   {
-    console.log(this.customerForm);
-    //this.Tab = 1;
-    if (this.customerForm.valid) {
-      console.log('form submitted');
-    } else {
-      console.log('nigga');
-      console.log(this.customerForm.errors);
+
+    if(!this.CustomerExist)
+    {
+      let customer = {
+        ID: +this.IDFormControl.value,
+      title:this.titeFormcontrol.value,
+      first_name: this.firstNameFormControl.value,
+      last_name:this.lastNameFormControl.value,
+      embossed_name: this.embossedNameFormControl.value,
+      NID: this.NIDFormControl.value,
+      passport: this.passportFormControl.value,
+      email: this.embossedNameFormControl.value,
+      birthdate:this.datePipe.transform(this.birthDateFormControl.value, 'yyyy-MM-dd'),
+      mobile_ISD:this.ISDFormcontrol.value,
+      mobile:this.mobileFormControl.value,
+      birth_Country:this.birthCountryFormcontrol.value,
+      nationality:this.nationalFormcontrol.value,
+      gender: this.genderFormcontrol.value,
+      passport_expiry_date: this.datePipe.transform(this.expDateFormControl.value, 'yyyy-MM-dd')
+        
+      }
+      console.log(this.customerForm);
+      //this.Tab = 1;
+      if (this.customerForm.valid) {
+       await this.customerService.addCustomer(customer).toPromise().then(
+         (data) => {
+           this.authService.setToken(data.body.accessToken);
+        }
+       ).catch((e) => 
+       { console.log(e);
+         this.SubmitErrorMessage = e.body.message;
+        this.authService.setToken(e.body.accessToken); })
+        console.log('form submitted');
+      } else {
+        console.log(this.customerForm.errors);
+      }
     }
+    else
+    {
+      ++this.Tab;
+    }
+
 
   }
   async getCustomer()
   {
+    this.setSubmitButtonText();
     this.disableForms();
     //this.DisableCustomerDetailesFlag = false;
     if(this.IDFormControl.errors)
@@ -62,7 +109,7 @@ export class PTSIssueComponent implements OnInit {
     if(this.Customer_ID.toString().length >=6)
     {
 
-     await this.customerService.getCustomer(this.Customer_ID).toPromise().then((data) => {
+      await this.customerService.getCustomer(this.Customer_ID).toPromise().then((data) => {
        this.titeFormcontrol.setValue(data.body.customer.title.toString());   
        this.firstNameFormControl.setValue(data.body.customer.first_name);
        this.lastNameFormControl.setValue(data.body.customer.last_name);
@@ -78,13 +125,23 @@ export class PTSIssueComponent implements OnInit {
        this.expDateFormControl.setValue(data.body.customer.passport_expiry_date);
        this.genderFormcontrol.setValue(data.body.customer.gender.toString());
 
-       console.log(data);
+       this.authService.setToken(data.body.accessToken);
 
-  
+       this.CustomerExist = true;
+       this.AppicationTabFlag = false;
+       this.setSubmitButtonText();
       }).catch(
-       (e) => this.enableForms()
+       (e) => {
+         this.enableForms();
+         this.authService.setToken(e.body.accessToken);
+         this.CustomerExist = false;
+         this.AppicationTabFlag = true;
+         this.setSubmitButtonText();
+        }
      );
+     //console.log();
     }
+    //this.setSubmitButtonText();
     
   }
 
@@ -279,19 +336,14 @@ export class PTSIssueComponent implements OnInit {
     return null;
     //if(!account.includes('840'))
   }
-  // emailDomainValidator(control: FormControl) { 
-  //   let account = control.value;
-      
-  //   if (email && email.indexOf("@") != -1) { 
-  //     let [_, domain] = email.split("@"); 
-  //     if (domain !== "codecraft.tv") { 
-  //       return {
-  //         emailDomain: {
-  //           parsedDomain: domain
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return null; 
-  // }
+
+  setSubmitButtonText()
+  {
+    if(this.CustomerExist)
+    {
+      this.SubmitButtonText ='Next';
+      return;
+    }
+    this.SubmitButtonText = 'Add';
+  }
 }
