@@ -20,6 +20,15 @@
     align-content: flex-end;
     align-items: flex-end;
   }
+
+  .cts-customer-button {
+    width: 100px;
+    padding: 20px;
+    align-self: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+   // position: relative;
+  }
   .cts-card {
     max-width: 100px;
     
