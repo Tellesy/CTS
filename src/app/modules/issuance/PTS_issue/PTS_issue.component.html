@@ -216,20 +216,28 @@
    </mat-tab>
 
 
-   <!--Second tab-->
+
+
+
+   <!--------------------Second tab---------------------------->
+
+
+
+
     <mat-tab label="Application" disabled={{AppicationTabFlag}}>
       <mat-card-content>
-        <form class="cts-form">
-          <br>
+        <form class="cts-form" [formGroup]="applicationFrom" (ngSubmit)="addApplication()">
           <div>
         <mat-form-field >
           <mat-label> Program </mat-label>
-          <mat-select value="1" required >
-            <mat-option value="1">PCIK243923</mat-option>
+          <mat-select [(value)]="ProgramID" required fromControlName="programFormControl" >
+            <!--mat-option value="1">PCIK243923</mat-option--->
+            <mat-option [value]="item.id" *ngFor="let item of programs" >{{item.id}}</mat-option>
+            
           </mat-select>
 
         </mat-form-field>
-      </div>
+         </div>
 
       <mat-form-field class="cts-full-width">
         <mat-label>Account Number</mat-label>
@@ -249,7 +257,7 @@
       <div>
         <mat-form-field >
           <mat-label> Application Type </mat-label>
-          <mat-select value="P" required >
+          <mat-select value="P" required fromControlName="applicationTypeFormControl" >
           <mat-option value="P">Primary Device</mat-option>
           </mat-select>
         </mat-form-field>
@@ -259,11 +267,19 @@
       <div>
         <mat-form-field >
           <mat-label> Application Sub Type </mat-label>
-          <mat-select value="N" required>
+          <mat-select value="N" required fromControlName="applicationSubTypeFormControl">
           <mat-option value="N">New Program</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
+      <mat-card-actions>
+        <div fxLayout="column" fxLayoutGap="100px" class="cts-customer-button">
+             <button mat-flat-button color="primary" style="width: 100px;" type="submit">
+              Submit
+            </button>
+        </div>
+      </mat-card-actions>
+
       </form>
         </mat-card-content>
    

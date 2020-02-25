@@ -3,8 +3,8 @@ import { DatePipe } from '@angular/common';
 import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { CustomerService } from 'src/app/shared/services/customer/customer.service';
+import { ApplicationService } from 'src/app/shared/services/mc_pts/application/application.service';
 import { AuthService } from 'src/app/shared/services/authentication/auth.service';
-import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 
 
@@ -26,13 +26,19 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class PTSIssueComponent implements OnInit {
 
+  programs = [
+    {id:1,name:'33424'},
+    {id:2,name:'34444'},
+    {id:3,name:'34454'},
+  ]
   //Strings
   SubmitErrorMessage:string = '';
   SubmitButtonText:string = 'Add';
 
   //Parameters
   Tab:number = 0;
-  startDate = new Date(1980, 0, 1);
+  startDate:Date = new Date(1980, 0, 1);
+  ProgramID:number;
 
   //Field Data
   Customer_ID:number;
@@ -41,11 +47,12 @@ export class PTSIssueComponent implements OnInit {
   AppicationTabFlag: boolean = true;
   CustomerExist:boolean = false;
 
+  //From Groups
+  customerForm:FormGroup;
+  applicationFrom:FormGroup;
 
 
-  constructor(private customerService:CustomerService, private authService:AuthService,private datePipe: DatePipe) { }
-
-
+  //Actions
   async addCustomer()
   {
 
@@ -69,24 +76,25 @@ export class PTSIssueComponent implements OnInit {
       passport_expiry_date: this.datePipe.transform(this.expDateFormControl.value, 'yyyy-MM-dd')
         
       }
-      console.log(this.customerForm);
       //this.Tab = 1;
       if (this.customerForm.valid) {
        await this.customerService.addCustomer(customer).toPromise().then(
          (data) => {
+
            this.authService.setToken(data.body.accessToken);
+           ++this.Tab;
         }
        ).catch((e) => 
        { console.log(e);
          this.SubmitErrorMessage = e.body.message;
         this.authService.setToken(e.body.accessToken); })
-        console.log('form submitted');
       } else {
         console.log(this.customerForm.errors);
       }
     }
     else
     {
+      this.IDFormControl.disable();
       ++this.Tab;
     }
 
@@ -95,7 +103,7 @@ export class PTSIssueComponent implements OnInit {
   async getCustomer()
   {
     this.setSubmitButtonText();
-    this.disableForms();
+    this.disableCustomerForms();
     //this.DisableCustomerDetailesFlag = false;
     if(this.IDFormControl.errors)
     {
@@ -132,7 +140,7 @@ export class PTSIssueComponent implements OnInit {
        this.setSubmitButtonText();
       }).catch(
        (e) => {
-         this.enableForms();
+         this.enableCustomerForms();
          this.authService.setToken(e.body.accessToken);
          this.CustomerExist = false;
          this.AppicationTabFlag = true;
@@ -145,31 +153,68 @@ export class PTSIssueComponent implements OnInit {
     
   }
 
-  customerForm:FormGroup;
+  async addApplication()
+  {
+    console.log('Value and ITem');
+    console.log(this.programFormControl.value);
+    console.log(this.ProgramID);
+
+
+    const application = {
+      program_code: this.ProgramID,
+      customer_id: this.IDFormControl.value,
+      branch_id: 1,
+      record_id: 'AD',
+      application_code: this.applicationTypeFormcontrol.value,
+      application_sub_code: this.applicationSubTypeFormcontrol.value,
+      //inputter: user_id
+    }
+    this.applicationService.addApplication(application).toPromise().then(
+      (data) => {
+        this.authService.setToken(data.body.accessToken);
+      }
+    ).catch(
+      (e) => {
+        this.authService.setToken(e.body.accessToken);
+      }
+    );
+  }
+
+  constructor(private customerService:CustomerService, private authService:AuthService,private datePipe: DatePipe,private applicationService:ApplicationService) { }
+
+
+ 
   ngOnInit() {
 
 
-  this.customerForm = new FormGroup({
-    IDFormControl: this.IDFormControl,
-    emailFormControl: this.emailFormControl,
-    firstNameFormControl:this.firstNameFormControl,
-    lastNameFormControl:this.lastNameFormControl,
-    NIDFormControl:this.NIDFormControl,
-    mobileFormControl:this.mobileFormControl,
-    ISDFormcontrol:this.ISDFormcontrol,
-    embossedNameFormControl:this.embossedNameFormControl,
-    nationalFormcontrol: this.nationalFormcontrol,
-    birthCountryFormcontrol: this.birthCountryFormcontrol,
-    birthDateFormControl: this.birthDateFormControl,
-    passportFormControl:this.passportFormControl,
-    expDateFormControl:this.expDateFormControl,
-    titeFormcontrol:this.titeFormcontrol,
-    genderFormcontrol:this.genderFormcontrol
-    
-  })
+          this.customerForm = new FormGroup({
+                      IDFormControl: this.IDFormControl,
+                      emailFormControl: this.emailFormControl,
+                      firstNameFormControl:this.firstNameFormControl,
+                      lastNameFormControl:this.lastNameFormControl,
+                      NIDFormControl:this.NIDFormControl,
+                      mobileFormControl:this.mobileFormControl,
+                      ISDFormcontrol:this.ISDFormcontrol,
+                      embossedNameFormControl:this.embossedNameFormControl,
+                      nationalFormcontrol: this.nationalFormcontrol,
+                      birthCountryFormcontrol: this.birthCountryFormcontrol,
+                      birthDateFormControl: this.birthDateFormControl,
+                      passportFormControl:this.passportFormControl,
+                      expDateFormControl:this.expDateFormControl,
+                      titeFormcontrol:this.titeFormcontrol,
+                      genderFormcontrol:this.genderFormcontrol
+          });
+
+          this.applicationFrom = new FormGroup({
+            accountNumberFormControl: this.accountNumberFormControl,
+            programFormcontrol: this.programFormControl,
+            applicationTypeFormcontrol: this.applicationTypeFormcontrol,
+            applicationSubTypeFormcontrol: this.applicationSubTypeFormcontrol
+
+          })
   }
 
-  enableForms()
+  enableCustomerForms()
   {
     //this.IDFormControl.enable();
     this.emailFormControl.enable();
@@ -184,12 +229,11 @@ export class PTSIssueComponent implements OnInit {
     this.birthDateFormControl.enable();
     this.passportFormControl.enable();
     this.expDateFormControl.enable();
-    this.accountNumberFormControl.enable();
     this.titeFormcontrol.enable();
     this.genderFormcontrol.enable();
   }
 
-  disableForms()
+  disableCustomerForms()
   {
     //this.IDFormControl.disable();
     this.emailFormControl.disable();
@@ -204,7 +248,6 @@ export class PTSIssueComponent implements OnInit {
     this.birthDateFormControl.disable();
     this.passportFormControl.disable();
     this.expDateFormControl.disable();
-    this.accountNumberFormControl.disable();
     this.titeFormcontrol.disable();
     this.genderFormcontrol.disable();
 
@@ -220,7 +263,6 @@ export class PTSIssueComponent implements OnInit {
     this.birthDateFormControl.setValue('');
     this.passportFormControl.setValue('');
     this.expDateFormControl.setValue('');
-    this.accountNumberFormControl.setValue('');
     this.titeFormcontrol.setValue('');
     this.genderFormcontrol.setValue('');
   }
@@ -299,13 +341,25 @@ export class PTSIssueComponent implements OnInit {
     Validators.required
   ]);
 
-  accountNumberFormControl = new FormControl({value: ''}, [
+  accountNumberFormControl = new FormControl({value: '',disable:false}, [
     Validators.required,
     Validators.maxLength(15),
     Validators.minLength(15),
     Validators.pattern(/^-?(0|[1-9]\d*)?$/),
     this.accountNumberValidator
    // Validators.
+  ]);
+
+  programFormControl = new FormControl({value: '', disabled: false}, [
+    Validators.required
+  ]);
+
+  applicationTypeFormcontrol = new FormControl({value: '', disabled: false}, [
+    Validators.required
+  ]);
+
+  applicationSubTypeFormcontrol = new FormControl({value: '', disabled: false}, [
+    Validators.required
   ]);
 
   IDmatcher = new MyErrorStateMatcher();
@@ -320,7 +374,6 @@ export class PTSIssueComponent implements OnInit {
   
 
   //Customer Validator
-
   accountNumberValidator(control: FormControl)
   {
      let account:string = control.value;
@@ -337,6 +390,7 @@ export class PTSIssueComponent implements OnInit {
     //if(!account.includes('840'))
   }
 
+  //Text setters
   setSubmitButtonText()
   {
     if(this.CustomerExist)
@@ -345,5 +399,13 @@ export class PTSIssueComponent implements OnInit {
       return;
     }
     this.SubmitButtonText = 'Add';
+  }
+
+  trackByFn(index, item) {
+    console.log('Track by');
+    console.log(index);
+    console.log(item);
+
+    return item.id;
   }
 }
