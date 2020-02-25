@@ -257,8 +257,8 @@
       <div>
         <mat-form-field >
           <mat-label> Application Type </mat-label>
-          <mat-select value="P" required fromControlName="applicationTypeFormControl" >
-          <mat-option value="P">Primary Device</mat-option>
+          <mat-select [(value)]="ApplicationTypeID" required fromControlName="applicationTypeFormControl" >
+            <mat-option [value]="item.id" *ngFor="let item of applicationTypes" >{{item.id}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -267,8 +267,8 @@
       <div>
         <mat-form-field >
           <mat-label> Application Sub Type </mat-label>
-          <mat-select value="N" required fromControlName="applicationSubTypeFormControl">
-          <mat-option value="N">New Program</mat-option>
+          <mat-select [(value)]="ApplicationSubTypeID" required fromControlName="applicationSubTypeFormControl">
+            <mat-option [value]="item.id" *ngFor="let item of applicationSubTypes" >{{item.id}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

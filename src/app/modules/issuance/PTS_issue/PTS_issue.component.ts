@@ -28,8 +28,13 @@ export class PTSIssueComponent implements OnInit {
 
   programs = [
     {id:1,name:'33424'},
-    {id:2,name:'34444'},
-    {id:3,name:'34454'},
+  ]
+
+  applicationTypes = [
+    {id:'P', name:'Primary Device'}
+  ]
+  applicationSubTypes = [
+    {id:'N', name:'New Program'}
   ]
   //Strings
   SubmitErrorMessage:string = '';
@@ -39,6 +44,8 @@ export class PTSIssueComponent implements OnInit {
   Tab:number = 0;
   startDate:Date = new Date(1980, 0, 1);
   ProgramID:number;
+  ApplicationTypeID:string;
+  ApplicationSubTypeID:string;
 
   //Field Data
   Customer_ID:number;
@@ -155,29 +162,37 @@ export class PTSIssueComponent implements OnInit {
 
   async addApplication()
   {
-    console.log('Value and ITem');
-    console.log(this.programFormControl.value);
-    console.log(this.ProgramID);
 
+    this.programFormControl.setValue(this.ProgramID);
+    this.applicationTypeFormcontrol.setValue(this.ApplicationTypeID);
+    this.applicationSubTypeFormcontrol.setValue(this.ApplicationSubTypeID);
 
     const application = {
       program_code: this.ProgramID,
       customer_id: this.IDFormControl.value,
       branch_id: 1,
       record_id: 'AD',
-      application_code: this.applicationTypeFormcontrol.value,
-      application_sub_code: this.applicationSubTypeFormcontrol.value,
+      application_code: this.ApplicationTypeID,
+      application_sub_code: this.ApplicationSubTypeID
       //inputter: user_id
     }
-    this.applicationService.addApplication(application).toPromise().then(
-      (data) => {
-        this.authService.setToken(data.body.accessToken);
-      }
-    ).catch(
-      (e) => {
-        this.authService.setToken(e.body.accessToken);
-      }
-    );
+
+    if (this.applicationFrom.valid)
+    {
+      this.applicationService.addApplication(application).toPromise().then(
+        (data) => {
+          this.authService.setToken(data.body.accessToken);
+        }
+      ).catch(
+        (e) => {
+          this.authService.setToken(e.body.accessToken);
+        }
+      );
+    }else
+    {
+      console.log(this.applicationFrom.errors);
+    }
+  
   }
 
   constructor(private customerService:CustomerService, private authService:AuthService,private datePipe: DatePipe,private applicationService:ApplicationService) { }
