@@ -174,7 +174,7 @@ export class PTSIssueComponent implements OnInit {
       record_id: 'AD',
       application_code: this.ApplicationTypeID,
       application_sub_code: this.ApplicationSubTypeID
-      //inputter: user_id
+      //inputter: user_id//set from API
     }
 
     if (this.applicationFrom.valid)
